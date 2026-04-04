@@ -1,30 +1,60 @@
 pipeline {
     agent any
-
     stages {
         stage('Checkout') {
             steps {
-                git 'https://github.com/https://github.com/2025sl93072/labsheet1-2025sl93072.git'
+                echo 'Checking out code...'
             }
         }
 
         stage('Build') {
             steps {
-                sh 'echo "Building project..."'
+                echo 'Build stage (no compilation needed for Python)'
             }
-        }
 
+        }
+ 
         stage('Test') {
-            steps {
-                sh 'python3 calculator.py'
-            }
-        }
 
-        stage('Deploy') {
             steps {
-                sh 'echo "Deploy stage (will update later)"'
+
+                echo 'Running tests...'
+
+                sh '''
+
+                python3 -c "
+
+from calculator import add, multiply, subtract, divide
+ 
+print(add(2,3))
+
+print(multiply(2,3))
+
+print(subtract(5,2))
+
+print(divide(10,2))
+
+"
+
+                '''
+
             }
+
         }
+ 
+        stage('Deploy') {
+
+            steps {
+
+                echo 'Deploy stage (dummy)'
+
+            }
+
+        }
+ 
     }
+
 }
+ 
+
 
